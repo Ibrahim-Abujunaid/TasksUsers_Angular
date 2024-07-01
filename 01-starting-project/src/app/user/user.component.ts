@@ -1,7 +1,11 @@
 import { name } from './../../../node_modules/@leichtgewicht/ip-codec/types/index.d';
-import { Component, Input ,computed,input } from '@angular/core';
+import { Component, Input ,computed,input, Output , EventEmitter} from '@angular/core';
 
-
+interface User {
+  id:string;
+  name:string;
+  avatar:string;
+}
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -10,12 +14,15 @@ import { Component, Input ,computed,input } from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+     @Input({required: true}) user!:User;
+     @Output() select = new EventEmitter();
 
-     @Input({required:true}) avatar!: string ;
-     @Input({required:true}) name!: string ;
-    onSelectedUser(){}
+    onSelectedUser(){
+
+      this.select.emit(this.user.id);
+    }
 
     get imagePath(){
-       return "../../assets/users/"+this.avatar;
+       return "../../assets/users/"+this.user.avatar;
     }
 }
