@@ -9,6 +9,7 @@
     @for(user of users; track user.id;let idx = $index){
       <li>
         <app-user
+        [selected]="user.id==selectedId"
         [user]="users[idx]"
         (select)="onSelectUser($event)"
          />
